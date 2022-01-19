@@ -328,13 +328,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwP-Ey-78A">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
                                 <connections>
                                     <outlet property="delegate" destination="m2C-yw-bgz" id="rBe-2a-h6x"/>
                                 </connections>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdd-Ut-2z4">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <items>
+                                    <barButtonItem title="Item" image="location" catalog="system" id="Ze5-A3-H60">
+                                        <connections>
+                                            <action selector="showCurrentLocationPressed:" destination="m2C-yw-bgz" id="Hyn-GG-RoW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vQb-yd-bpQ"/>
+                                    <barButtonItem title="Before" id="oYC-9k-zsb">
+                                        <connections>
+                                            <action selector="beforeRoutePressed:" destination="m2C-yw-bgz" id="rql-uU-x4M"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fNn-ac-FqY"/>
+                                    <barButtonItem title="Next" id="3Oo-wE-RSX">
+                                        <connections>
+                                            <action selector="nextRoutePressed:" destination="m2C-yw-bgz" id="WEB-BU-i7x"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="yUK-Pd-cn8"/>
+                                    <barButtonItem title="Draw route" id="hF9-zF-MI6">
+                                        <connections>
+                                            <action selector="drawRoutePressed:" destination="m2C-yw-bgz" id="m4d-RE-Osz"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-8M-m1I">
-                                <rect key="frame" x="16" y="819" width="45" height="31"/>
+                                <rect key="frame" x="16" y="731" width="45" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="location" catalog="system"/>
                                 <connections>
@@ -342,7 +370,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVB-6K-5e7">
-                                <rect key="frame" x="303" y="819" width="95" height="31"/>
+                                <rect key="frame" x="303" y="731" width="95" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Draw route"/>
                                 <connections>
@@ -353,14 +381,18 @@
                         <viewLayoutGuide key="safeArea" id="cKL-Sn-6Te"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="OVB-6K-5e7" secondAttribute="bottom" constant="12" id="4Zc-PA-YdP"/>
+                            <constraint firstAttribute="trailing" secondItem="mdd-Ut-2z4" secondAttribute="trailing" id="2Go-IK-Svp"/>
+                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="OVB-6K-5e7" secondAttribute="bottom" constant="100" id="4Zc-PA-YdP"/>
                             <constraint firstItem="gwP-Ey-78A" firstAttribute="top" secondItem="cKL-Sn-6Te" secondAttribute="top" id="S1H-HN-TNN"/>
-                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="gwP-Ey-78A" secondAttribute="bottom" id="X4e-wV-bea"/>
+                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="mdd-Ut-2z4" secondAttribute="bottom" id="TgA-vD-7jf"/>
+                            <constraint firstItem="mdd-Ut-2z4" firstAttribute="leading" secondItem="cKL-Sn-6Te" secondAttribute="leading" id="W8f-on-br9"/>
+                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="gwP-Ey-78A" secondAttribute="bottom" constant="50" id="X4e-wV-bea"/>
                             <constraint firstItem="cKL-Sn-6Te" firstAttribute="trailing" secondItem="gwP-Ey-78A" secondAttribute="trailing" id="dOP-hM-XIz"/>
                             <constraint firstItem="cKL-Sn-6Te" firstAttribute="trailing" secondItem="OVB-6K-5e7" secondAttribute="trailing" constant="16" id="lDs-Pt-ZMr"/>
+                            <constraint firstItem="mdd-Ut-2z4" firstAttribute="top" secondItem="gwP-Ey-78A" secondAttribute="bottom" id="m9e-8a-oml"/>
                             <constraint firstItem="gwP-Ey-78A" firstAttribute="leading" secondItem="cKL-Sn-6Te" secondAttribute="leading" id="nta-0z-NAT"/>
                             <constraint firstItem="ffX-8M-m1I" firstAttribute="leading" secondItem="cKL-Sn-6Te" secondAttribute="leading" constant="16" id="y8J-QK-62p"/>
-                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="ffX-8M-m1I" secondAttribute="bottom" constant="12" id="zVa-0s-bRv"/>
+                            <constraint firstItem="cKL-Sn-6Te" firstAttribute="bottom" secondItem="ffX-8M-m1I" secondAttribute="bottom" constant="100" id="zVa-0s-bRv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AAX-mw-rl1"/>

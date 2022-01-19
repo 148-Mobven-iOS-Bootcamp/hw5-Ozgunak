@@ -12,6 +12,7 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
+    private var routeIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,6 +60,32 @@ class MapViewController: UIViewController {
     }
 
     @IBAction func drawRouteButtonTapped(_ sender: UIButton) {
+        drawMap(route: 0)
+    }
+
+    @IBAction func drawRoutePressed(_ sender: UIBarButtonItem) {
+        drawMap(route: 0)
+    }
+    
+    @IBAction func nextRoutePressed(_ sender: UIBarButtonItem) {
+        if routeIndex == 2  {
+            routeIndex = 0
+        }else if routeIndex == 1  {
+            routeIndex = 2
+        }else if routeIndex == 0  {
+            routeIndex = 1
+        }
+        drawMap(route: routeIndex)
+    }
+    @IBAction func beforeRoutePressed(_ sender: UIBarButtonItem) {
+    }
+    
+    @IBAction func showCurrentLocationPressed(_ sender: UIBarButtonItem) {
+        locationManager.requestLocation()
+
+    }
+    
+    func drawMap(route: Int){
         guard let currentCoordinate = currentCoordinate,
               let destinationCoordinate = destinationCoordinate else {
                   // log
@@ -88,7 +115,9 @@ class MapViewController: UIViewController {
                 return
             }
 
-            guard let polyline: MKPolyline = response?.routes.first?.polyline else { return }
+            // array mkroutes
+            guard let route1 = response?.routes.self else { return }
+            let polyline: MKPolyline = route1[route].polyline
             self.mapView.addOverlay(polyline, level: .aboveLabels)
 
             let rect = polyline.boundingMapRect
@@ -98,7 +127,6 @@ class MapViewController: UIViewController {
             //Odev 1 navigate buttonlari ile diger route'lar gosterilmelidir.
         }
     }
-
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
