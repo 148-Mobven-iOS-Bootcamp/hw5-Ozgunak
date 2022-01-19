@@ -59,12 +59,17 @@ class MapViewController: UIViewController {
         locationManager.requestLocation()
     }
 
+
     @IBAction func drawRouteButtonTapped(_ sender: UIButton) {
         drawMap(route: 0)
     }
 
+    //MARK: - Homework 1 Toolbar eklendi,
+
     @IBAction func drawRoutePressed(_ sender: UIBarButtonItem) {
         drawMap(route: 0)
+        
+
     }
     
     @IBAction func nextRoutePressed(_ sender: UIBarButtonItem) {
@@ -78,6 +83,14 @@ class MapViewController: UIViewController {
         drawMap(route: routeIndex)
     }
     @IBAction func beforeRoutePressed(_ sender: UIBarButtonItem) {
+        if routeIndex == 2  {
+            routeIndex = 1
+        }else if routeIndex == 1  {
+            routeIndex = 0
+        }else if routeIndex == 0  {
+            routeIndex = 2
+        }
+        drawMap(route: routeIndex)
     }
     
     @IBAction func showCurrentLocationPressed(_ sender: UIBarButtonItem) {
@@ -92,7 +105,7 @@ class MapViewController: UIViewController {
                   // alert
             return
         }
-
+        self.navigationItem.title = "Calculating route"
         let sourcePlacemark = MKPlacemark(coordinate: currentCoordinate)
         let source = MKMapItem(placemark: sourcePlacemark)
 
@@ -115,15 +128,28 @@ class MapViewController: UIViewController {
                 return
             }
 
-            // array mkroutes
+            //MARK: - At first call shows all routes then shows individual routes.
+
+            if route != 0 {
             guard let route1 = response?.routes.self else { return }
-            let polyline: MKPolyline = route1[route].polyline
-            self.mapView.addOverlay(polyline, level: .aboveLabels)
+                let polyline: MKPolyline = route1[route].polyline
+                self.mapView.addOverlay(polyline, level: .aboveLabels)
+                
+                let rect = polyline.boundingMapRect
+                let region = MKCoordinateRegion(rect)
+                self.mapView.setRegion(region, animated: true)
+            }else {
+                guard let route1 = response?.routes.self else { return }
+                route1.forEach { way in
+                    let polyline: MKPolyline = way.polyline
+                    self.mapView.addOverlay(polyline, level: .aboveLabels)
 
-            let rect = polyline.boundingMapRect
-            let region = MKCoordinateRegion(rect)
-            self.mapView.setRegion(region, animated: true)
-
+                    let rect = polyline.boundingMapRect
+                    let region = MKCoordinateRegion(rect)
+                    self.mapView.setRegion(region, animated: true)
+                }
+                
+            }
             //Odev 1 navigate buttonlari ile diger route'lar gosterilmelidir.
         }
     }
@@ -142,6 +168,12 @@ extension MapViewController: CLLocationManagerDelegate {
         print("longitude: \(coordinate.longitude)")
 
         mapView.setCenter(coordinate, animated: true)
+        //MARK: - Navigation item title chances when location button pressed.
+
+        self.navigationItem.title = "Showing center"
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false, block: { _ in
+            self.navigationItem.title = ""
+        })
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -158,6 +190,7 @@ extension MapViewController: MKMapViewDelegate {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = .magenta
         renderer.lineWidth = 8
+        self.navigationItem.title = "Showing Route"
         return renderer
     }
 }
