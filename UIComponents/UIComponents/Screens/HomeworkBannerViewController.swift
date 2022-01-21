@@ -9,6 +9,9 @@ import UIKit
 
 class HomeworkBannerViewController: UIPageViewController {
     
+    var controllers: [UIViewController] = []
+    private var currentPageIndex = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
@@ -22,12 +25,18 @@ class HomeworkBannerViewController: UIPageViewController {
                            animated: true,
                            completion: nil)
         self.view.addSubview(pageControl)
+        
+        //MARK: - Homework automatic transition every 10 sec.
+        
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
+            self.currentPageIndex = (self.currentPageIndex < self.controllers.count - 1) ? self.currentPageIndex + 1 : 0  // At the end of the array stars from the beginning
+            self.setViewControllers([self.controllers[self.currentPageIndex]], direction: .forward, animated: true, completion: nil)
+            self.pageControl.currentPage = self.currentPageIndex
+        }
     }
-    var controllers: [UIViewController] = []
-    private var currentPageIndex = 1
     
     private lazy var pageControl: UIPageControl = {
-        let pageControlWidth: CGFloat = 150
+        let pageControlWidth: CGFloat = 200
         let pageControlHeight: CGFloat = 50
         
         let frame = CGRect(x: (screenWidth - pageControlWidth) / 2,
@@ -37,7 +46,8 @@ class HomeworkBannerViewController: UIPageViewController {
         
         let pageControl = UIPageControl(frame: frame)
         pageControl.numberOfPages = controllers.count
-        pageControl.backgroundColor = .blue
+        pageControl.backgroundColor = .lightGray
+        pageControl.layer.cornerRadius = pageControlHeight / 2
         pageControl.currentPageIndicatorTintColor = .yellow
         pageControl.addTarget(self, action: #selector(pageControlValueChanged(_:)), for: .valueChanged)
         return pageControl
@@ -50,6 +60,8 @@ class HomeworkBannerViewController: UIPageViewController {
         setViewControllers([controllers[index]], direction: direction, animated: true, completion: nil)
     }
     
+    //MARK: - Created 5 view controllers with different bg colors and tags
+
     func setViewControllers() -> [UIViewController] {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -75,7 +87,6 @@ class HomeworkBannerViewController: UIPageViewController {
         
         return [firstViewControler, secondViewController, thirdViewController, forthViewController, fifthViewController]
     }
-    
 }
 
 // MARK: - PageController DataSource
@@ -108,5 +119,6 @@ extension HomeworkBannerViewController: UIPageViewControllerDelegate {
         guard completed else { return }
         guard let index = pageViewController.viewControllers?.first?.view.tag else { return }
         self.pageControl.currentPage = index
+        self.currentPageIndex = index
     }
 }
