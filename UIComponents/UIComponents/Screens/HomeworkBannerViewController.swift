@@ -28,7 +28,7 @@ class HomeworkBannerViewController: UIPageViewController {
         
         //MARK: - Homework automatic transition every 10 sec.
         
-        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { _ in
             self.currentPageIndex = (self.currentPageIndex < self.controllers.count - 1) ? self.currentPageIndex + 1 : 0  // At the end of the array stars from the beginning
             self.setViewControllers([self.controllers[self.currentPageIndex]], direction: .forward, animated: true, completion: nil)
             self.pageControl.currentPage = self.currentPageIndex

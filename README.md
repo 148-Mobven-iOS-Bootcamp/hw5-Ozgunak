@@ -1,5 +1,10 @@
 # HW5
 
+
+![Simulator Screen Recording - iPhone 13 - 2022-01-21 at 13 27 28](https://user-images.githubusercontent.com/64470656/150511788-f872610b-0f00-4c91-b37b-6fd0a4e32635.gif)
+![Simulator Screen Recording - iPhone 13 - 2022-01-21 at 13 37 52](https://user-images.githubusercontent.com/64470656/150512860-7875a00f-b9f7-4d46-87d3-5a676eb64981.gif)
+
+
 Odev 1: MapViewController’a bir toolbar eklenerek bu toolbar icerisinde sag ve sol oklar bulunacaktir. Kullanici bir rota olusturdugunda varsa alternatif rotalar da eszamanli kullaniciya gosterilecek, toolbara konulan ok tuslari ile rotalar arasi gecis saglanacaktir. 
 
 Odev 2: olusturulacak bir viewController icerisinde gazete uygulamalarindan aliskin oldugumuz bir banner slider yapilacaktir. viewController icerisine bir scrollView, scrollView icerisine de 5 adet her biri farkli renkte view eklenecektir. 
