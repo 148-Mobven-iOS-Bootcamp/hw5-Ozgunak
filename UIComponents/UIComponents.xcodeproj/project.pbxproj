@@ -32,6 +32,8 @@
 		2391F724277732FC00269D7F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2391F723277732FC00269D7F /* SecondViewController.swift */; };
 		2391F74C27788A4500269D7F /* DynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2391F74B27788A4400269D7F /* DynamicTableViewController.swift */; };
 		2391F75127788C8300269D7F /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2391F75027788C8300269D7F /* UIColorExtensions.swift */; };
+		EF985B37279AAF4300FDA32B /* HomeworkBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF985B36279AAF4300FDA32B /* HomeworkBannerViewController.swift */; };
+		EFF0AF40279AB3FC0000F8CA /* sampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF0AF3F279AB3FC0000F8CA /* sampleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		2391F723277732FC00269D7F /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		2391F74B27788A4400269D7F /* DynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewController.swift; sourceTree = "<group>"; };
 		2391F75027788C8300269D7F /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		EF985B36279AAF4300FDA32B /* HomeworkBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkBannerViewController.swift; sourceTree = "<group>"; };
+		EFF0AF3F279AB3FC0000F8CA /* sampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,8 @@
 				238A332E278AE3100070B74E /* WebViewContainerViewController.swift */,
 				238A3330278AF6A80070B74E /* MapViewController.swift */,
 				238FE2602792BA08000D742C /* PageViewController.swift */,
+				EF985B36279AAF4300FDA32B /* HomeworkBannerViewController.swift */,
+				EFF0AF3F279AB3FC0000F8CA /* sampleViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -252,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF985B37279AAF4300FDA32B /* HomeworkBannerViewController.swift in Sources */,
 				238A3317278970CE0070B74E /* StaticTableViewController.swift in Sources */,
 				2391F724277732FC00269D7F /* SecondViewController.swift in Sources */,
 				238A3325278988260070B74E /* UITableViewExtensions.swift in Sources */,
@@ -263,6 +270,7 @@
 				2391F75127788C8300269D7F /* UIColorExtensions.swift in Sources */,
 				238A332B278AC2F60070B74E /* CompostitionalCollectionViewController.swift in Sources */,
 				2391F74C27788A4500269D7F /* DynamicTableViewController.swift in Sources */,
+				EFF0AF40279AB3FC0000F8CA /* sampleViewController.swift in Sources */,
 				238A332F278AE3100070B74E /* WebViewContainerViewController.swift in Sources */,
 				231A9CB827940AFD004065DF /* MyClass.swift in Sources */,
 				238A33272789AE2D0070B74E /* DynamicCollectionViewController.swift in Sources */,
