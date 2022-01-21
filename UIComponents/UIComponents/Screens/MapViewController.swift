@@ -12,13 +12,18 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
-    private var routeIndex = 0
+    private var routeIndex = 3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         checkLocationPermission()
         addLongGestureRecognizer()
+    
+        
     }
+
+    
 
     private var currentCoordinate: CLLocationCoordinate2D?
     private var destinationCoordinate: CLLocationCoordinate2D?
@@ -55,40 +60,42 @@ class MapViewController: UIViewController {
         }
     }
 
-    @IBAction func showCurrentLocationTapped(_ sender: UIButton) {
-        locationManager.requestLocation()
-    }
-
-
-    @IBAction func drawRouteButtonTapped(_ sender: UIButton) {
-        drawMap(route: 0)
-    }
 
     //MARK: - Homework 1 Toolbar eklendi,
 
     @IBAction func drawRoutePressed(_ sender: UIBarButtonItem) {
-        drawMap(route: 0)
-        
-
+        // if route parameter is 3 then it shows all routes
+        drawMap(route: 3)
+        routeIndex = 3
     }
     
-    @IBAction func nextRoutePressed(_ sender: UIBarButtonItem) {
-        if routeIndex == 2  {
+    @IBAction func rightRoutePressed(_ sender: UIBarButtonItem) {
+        switch routeIndex {
+        case 3:
             routeIndex = 0
-        }else if routeIndex == 1  {
+        case 2:
+            routeIndex = 0
+        case 1:
             routeIndex = 2
-        }else if routeIndex == 0  {
+        case 0:
             routeIndex = 1
+        default:
+            routeIndex = 3
         }
         drawMap(route: routeIndex)
     }
-    @IBAction func beforeRoutePressed(_ sender: UIBarButtonItem) {
-        if routeIndex == 2  {
-            routeIndex = 1
-        }else if routeIndex == 1  {
+    @IBAction func leftRoutePressed(_ sender: UIBarButtonItem) {
+        switch routeIndex {
+        case 3:
             routeIndex = 0
-        }else if routeIndex == 0  {
+        case 2:
+            routeIndex = 1
+        case 1:
+            routeIndex = 0
+        case 0:
             routeIndex = 2
+        default:
+            routeIndex = 3
         }
         drawMap(route: routeIndex)
     }
@@ -99,6 +106,9 @@ class MapViewController: UIViewController {
     }
     
     func drawMap(route: Int){
+        // When calculation new routes removes map overlays first
+        mapView.removeOverlays(mapView.overlays)
+        
         guard let currentCoordinate = currentCoordinate,
               let destinationCoordinate = destinationCoordinate else {
                   // log
@@ -130,17 +140,17 @@ class MapViewController: UIViewController {
 
             //MARK: - At first call shows all routes then shows individual routes.
 
-            if route != 0 {
-            guard let route1 = response?.routes.self else { return }
-                let polyline: MKPolyline = route1[route].polyline
+            if route != 3 {
+            guard let routeList = response?.routes else { return }
+                let polyline: MKPolyline = routeList[route].polyline
                 self.mapView.addOverlay(polyline, level: .aboveLabels)
-                
+
                 let rect = polyline.boundingMapRect
                 let region = MKCoordinateRegion(rect)
                 self.mapView.setRegion(region, animated: true)
             }else {
-                guard let route1 = response?.routes.self else { return }
-                route1.forEach { way in
+                guard let routeList = response?.routes else { return }
+                routeList.forEach { way in
                     let polyline: MKPolyline = way.polyline
                     self.mapView.addOverlay(polyline, level: .aboveLabels)
 
@@ -148,7 +158,7 @@ class MapViewController: UIViewController {
                     let region = MKCoordinateRegion(rect)
                     self.mapView.setRegion(region, animated: true)
                 }
-                
+
             }
             //Odev 1 navigate buttonlari ile diger route'lar gosterilmelidir.
         }
@@ -158,6 +168,15 @@ class MapViewController: UIViewController {
         locationManager.delegate = self
         return locationManager
     }()
+    
+    func getColor() -> UIColor {
+        // while showing all routes stroke color is red, otherwise blue
+        if routeIndex == 3 {
+            return .red
+        }else {
+            return .blue
+        }
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -188,9 +207,11 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = .magenta
+        self.navigationItem.title = (routeIndex == 3) ? "Showing All Roues" : "Showing Route \(routeIndex + 1)"
+        renderer.strokeColor = getColor()
+        renderer.fillColor = .yellow
         renderer.lineWidth = 8
-        self.navigationItem.title = "Showing Route"
         return renderer
     }
+    
 }
